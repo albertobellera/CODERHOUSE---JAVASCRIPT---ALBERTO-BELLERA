@@ -22,30 +22,48 @@ while (reiniciar === 'S') {
         function calcularPoliza(edad, añoCarro) {
             let fraccionPoliza;
 
-            if (edad >= 18 && edad <= 23) {
-                if (añoCarro >= 2019) {
-                    fraccionPoliza = 0.006;
-                } else if (añoCarro >= 2010 && añoCarro <= 2018) {
-                    fraccionPoliza = 0.0055;
-                } else if (añoCarro <= 2009) {
-                    fraccionPoliza = 0.003;
-                }
-            } else if (edad >= 24 && edad <= 55) {
-                if (añoCarro >= 2019) {
-                    fraccionPoliza = 0.005;
-                } else if (añoCarro >= 2010 && añoCarro <= 2018) {
-                    fraccionPoliza = 0.0049;
-                } else if (añoCarro <= 2009) {
-                    fraccionPoliza = 0.0025;
-                }
-            } else if (edad >= 56) {
-                if (añoCarro >= 2019) {
-                    fraccionPoliza = 0.0047;
-                } else if (añoCarro >= 2010 && añoCarro <= 2018) {
-                    fraccionPoliza = 0.0046;
-                } else if (añoCarro <= 2009) {
-                    fraccionPoliza = 0.002;
-                }
+            switch (true) {
+                case (edad >= 18 && edad <= 23):
+                    switch (true) {
+                        case (añoCarro >= 2019):
+                            fraccionPoliza = 0.006;
+                            break;
+                        case (añoCarro >= 2010 && añoCarro <= 2018):
+                            fraccionPoliza = 0.0055;
+                            break;
+                        case (añoCarro <= 2009):
+                            fraccionPoliza = 0.003;
+                            break;
+                    }
+                    break;
+            
+                case (edad >= 24 && edad <= 55):
+                    switch (true) {
+                        case (añoCarro >= 2019):
+                            fraccionPoliza = 0.005;
+                            break;
+                        case (añoCarro >= 2010 && añoCarro <= 2018):
+                            fraccionPoliza = 0.0049;
+                            break;
+                        case (añoCarro <= 2009):
+                            fraccionPoliza = 0.0025;
+                            break;
+                    }
+                    break;
+            
+                case (edad >= 56):
+                    switch (true) {
+                        case (añoCarro >= 2019):
+                            fraccionPoliza = 0.0047;
+                            break;
+                        case (añoCarro >= 2010 && añoCarro <= 2018):
+                            fraccionPoliza = 0.0046;
+                            break;
+                        case (añoCarro <= 2009):
+                            fraccionPoliza = 0.002;
+                            break;
+                    }
+                    break;
             }
 
             console.log(fraccionPoliza);
