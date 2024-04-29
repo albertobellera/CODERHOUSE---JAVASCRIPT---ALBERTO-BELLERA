@@ -14,8 +14,19 @@ while (reiniciar === 'S') {
         precioCarro = prompt("Ingresa el precio del carro:");
     }
 
-    if (parseInt(edad) < 18) {
-        alert("No puedes asegurar un carro siendo menor de edad.");
+    if (parseInt(edad) < 18 || parseInt(añoCarro) > 2025 || parseInt(añoCarro) < 1940 || parseInt(precioCarro) < 1000) {
+        if (parseInt(edad) < 18) {
+            alert("No puedes asegurar un carro siendo menor de edad.");
+        }
+        if (parseInt(añoCarro) > 2025) {
+            alert("No puedes asegurar un carro del futuro.");
+        }
+        if (parseInt(añoCarro) < 1940) {
+            alert("Cambia ese carro bro.");
+        }
+        if (parseInt(precioCarro) < 1000) {
+            alert("Esa ya ta muy viejo.");
+        }
     } else {
         let fraccionPoliza = calcularPoliza(parseInt(edad), parseInt(añoCarro));
 
@@ -36,7 +47,7 @@ while (reiniciar === 'S') {
                             break;
                     }
                     break;
-            
+
                 case (edad >= 24 && edad <= 55):
                     switch (true) {
                         case (añoCarro >= 2019):
@@ -50,7 +61,7 @@ while (reiniciar === 'S') {
                             break;
                     }
                     break;
-            
+
                 case (edad >= 56):
                     switch (true) {
                         case (añoCarro >= 2019):
@@ -78,7 +89,7 @@ while (reiniciar === 'S') {
             return polizaMensual;
         }
 
-        alert("El seguro del seguro mensual para tu auto es de: $" + calcularPolizaMensual(fraccionPoliza, parseFloat(precioCarro)));
+        alert("El seguro mensual para tu auto es de: $" + calcularPolizaMensual(fraccionPoliza, parseFloat(precioCarro)));
     }
 
     reiniciar = prompt("¿Deseas calcular otra póliza? (S/N)");
