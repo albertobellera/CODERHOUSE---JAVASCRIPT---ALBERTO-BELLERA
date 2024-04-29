@@ -25,7 +25,7 @@ while (reiniciar === 'S') {
             alert("Cambia ese carro bro.");
         }
         if (parseInt(precioCarro) < 1000) {
-            alert("Esa ya ta muy viejo.");
+            alert("Algo tan barato no puede andar en la calle.");
         }
     } else {
         let fraccionPoliza = calcularPoliza(parseInt(edad), parseInt(añoCarro));
