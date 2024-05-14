@@ -14,7 +14,7 @@ while (reiniciar === 'S') {
         precioCarro = prompt("Ingresa el precio del carro:");
     }
 
-    if (parseInt(edad) < 18 || parseInt(añoCarro) > 2025 || parseInt(añoCarro) < 1940 || parseInt(precioCarro) < 1000) {
+    if (parseInt(edad) < 18 || parseInt(añoCarro) > 2025 || parseDouble(añoCarro) < 1940 || parseInt(precioCarro) < 1000) {
         if (parseInt(edad) < 18) {
             alert("No puedes asegurar un carro siendo menor de edad.");
         }
