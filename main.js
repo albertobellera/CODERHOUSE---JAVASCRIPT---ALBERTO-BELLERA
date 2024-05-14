@@ -24,7 +24,7 @@ while (reiniciar === 'S') {
         if (parseInt(añoCarro) < 1940) {
             alert("Cambia ese carro bro.");
         }
-        if (parseInt(precioCarro) < 1000) {
+        if (parseDouble(precioCarro) < 1000) {
             alert("Algo tan barato no puede andar en la calle.");
         }
     } else {
