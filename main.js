@@ -58,7 +58,7 @@ function crearVehiculo() {
   let edadDueno = parseInt(prompt("Que edad tienes?"));
   let modeloCarro = prompt("Que modelo es tu carro?");
   let anoCarro = parseInt(prompt("De que año es tu carro?"));
-  let precioCarro = parseFloat(prompt("Cuanto cuesta tu carro?")).toFixed(2);
+  let precioCarro = parseFloat(prompt("Cuanto cuesta tu carro?"));
   
   let vehiculo = {
     nombreDueno: nombreDueno,
@@ -86,7 +86,7 @@ function verVehiculos(listaVehiculos) {
     let mensaje = "Vehículos registrados:\n";
     for (let i = 0; i < listaVehiculos.length; i++) {
       let vehiculo = listaVehiculos[i];
-      mensaje += `${i + 1}. ${vehiculo.nombreDueno} - ${vehiculo.modeloCarro} (${vehiculo.anoCarro}) - $${vehiculo.precioCarro}\n`;
+      mensaje += `${i + 1}. ${vehiculo.nombreDueno} - ${vehiculo.modeloCarro} (${vehiculo.anoCarro}) - $${vehiculo.precioCarro.toFixed(2)}\n`;
     }
     alert(mensaje);
   }
@@ -101,7 +101,7 @@ function seleccionarVehiculoPara(callback) {
   let mensaje = "Seleccione un vehículo:\n";
   for (let i = 0; i < listaVehiculos.length; i++) {
     let vehiculo = listaVehiculos[i];
-    mensaje += `${i + 1}. ${vehiculo.nombreDueno} - ${vehiculo.modeloCarro} (${vehiculo.anoCarro}) - $${vehiculo.precioCarro}\n`;
+    mensaje += `${i + 1}. ${vehiculo.nombreDueno} - ${vehiculo.modeloCarro} (${vehiculo.anoCarro}) - $${vehiculo.precioCarro.toFixed(2)}\n`;
   }
   
   let seleccion = parseInt(prompt(mensaje)) - 1;
@@ -117,49 +117,50 @@ function seleccionarVehiculoPara(callback) {
 function calcularPoliza(vehiculo) {
   let { nombreDueno, edadDueno, modeloCarro, anoCarro, precioCarro } = vehiculo;
   let fraccionPoliza;
+
   switch (true) {
     case (edadDueno >= 18 && edadDueno <= 23):
-        switch (true) {
-            case (anoCarro >= 2019):
-                fraccionPoliza = 0.006;
-                break;
-            case (anoCarro >= 2010 && anoCarro <= 2018):
-                fraccionPoliza = 0.0055;
-                break;
-            case (anoCarro <= 2009):
-                fraccionPoliza = 0.003;
-                break;
-        }
-        break;
+      switch (true) {
+        case (anoCarro >= 2019):
+          fraccionPoliza = 0.006;
+          break;
+        case (anoCarro >= 2010 && anoCarro <= 2018):
+          fraccionPoliza = 0.0055;
+          break;
+        case (anoCarro <= 2009):
+          fraccionPoliza = 0.003;
+          break;
+      }
+      break;
 
     case (edadDueno >= 24 && edadDueno <= 55):
-        switch (true) {
-            case (anoCarro >= 2019):
-                fraccionPoliza = 0.005;
-                break;
-            case (anoCarro >= 2010 && anoCarro <= 2018):
-                fraccionPoliza = 0.0049;
-                break;
-            case (anoCarro <= 2009):
-                fraccionPoliza = 0.0025;
-                break;
-        }
-        break;
+      switch (true) {
+        case (anoCarro >= 2019):
+          fraccionPoliza = 0.005;
+          break;
+        case (anoCarro >= 2010 && anoCarro <= 2018):
+          fraccionPoliza = 0.0049;
+          break;
+        case (anoCarro <= 2009):
+          fraccionPoliza = 0.0025;
+          break;
+      }
+      break;
 
     case (edadDueno >= 56):
-        switch (true) {
-            case (anoCarro >= 2019):
-                fraccionPoliza = 0.0047;
-                break;
-            case (anoCarro >= 2010 && anoCarro <= 2018):
-                fraccionPoliza = 0.0046;
-                break;
-            case (anoCarro <= 2009):
-                fraccionPoliza = 0.002;
-                break;
-        }
-        break;
-}
+      switch (true) {
+        case (anoCarro >= 2019):
+          fraccionPoliza = 0.0047;
+          break;
+        case (anoCarro >= 2010 && anoCarro <= 2018):
+          fraccionPoliza = 0.0046;
+          break;
+        case (anoCarro <= 2009):
+          fraccionPoliza = 0.002;
+          break;
+      }
+      break;
+  }
   
   let polizaMensual = precioCarro * fraccionPoliza;
 
@@ -169,8 +170,23 @@ function calcularPoliza(vehiculo) {
 }
 
 function calcularLetra(vehiculo) {
-  let { nombreDueno, edadDueno, modeloCarro, anoCarro, precioCarro } = vehiculo;
-  let plazo = 12;
-  let letraMensual = precioCarro / plazo;
+  let { nombreDueno, modeloCarro, precioCarro } = vehiculo;
+
+  let abonoInicial = parseFloat(prompt("Cuanto diste de abono inicial para el vehiculo?"));
+  let anosLetraSeleccion = parseInt(prompt("En cuantos años quieres pagar el vehiculo?"));
+  let porcentajePrecioLetra;
+
+  if (anosLetraSeleccion <= 5) {
+    porcentajePrecioLetra = 0.05;
+  } else if (anosLetraSeleccion > 5 && anosLetraSeleccion <= 7) {
+    porcentajePrecioLetra = 0.07;
+  } else {
+    porcentajePrecioLetra = 0.1;
+  }
+
+  let montoRestante = (precioCarro - abonoInicial) * (1 + porcentajePrecioLetra);
+  let letraMensual = montoRestante / (anosLetraSeleccion * 12);
+
   alert(`La letra mensual para ${nombreDueno} y su vehículo ${modeloCarro} es de $${letraMensual.toFixed(2)}`);
+  return letraMensual;
 }
