@@ -1,100 +1,103 @@
-let reiniciar = 'S';
+let listaVehiculos = [];
 
-while (reiniciar === 'S') {
-    alert("Bienvenido a la calculadora de póliza de seguro para tu auto!");
+// Menu
 
-    let edad = prompt("Ingresa tu edad:");
-    let añoCarro = prompt("Ingresa el año del carro:");
-    let precioCarro = prompt("Ingresa el precio del carro:");
-
-    while (edad === "" || añoCarro === "" || precioCarro === "") {
-        alert("Debes completar todos los campos. Intenta nuevamente.");
-        edad = prompt("Ingresa tu edad:");
-        añoCarro = prompt("Ingresa el año del carro:");
-        precioCarro = prompt("Ingresa el precio del carro:");
-    }
-
-    if (parseInt(edad) < 18 || parseInt(añoCarro) > 2025 || parseInt(añoCarro) < 1940 || parseInt(precioCarro) < 1000) {
-        if (parseInt(edad) < 18) {
-            alert("No puedes asegurar un carro siendo menor de edad.");
-        }
-        if (parseInt(añoCarro) > 2025) {
-            alert("No puedes asegurar un carro del futuro.");
-        }
-        if (parseInt(añoCarro) < 1940) {
-            alert("Cambia ese carro bro.");
-        }
-        if (parseInt(precioCarro) < 1000) {
-            alert("Algo tan barato no puede andar en la calle.");
-        }
-    } else {
-        let fraccionPoliza = calcularPoliza(parseInt(edad), parseInt(añoCarro));
-
-        function calcularPoliza(edad, añoCarro) {
-            let fraccionPoliza;
-
-            switch (true) {
-                case (edad >= 18 && edad <= 23):
-                    switch (true) {
-                        case (añoCarro >= 2019):
-                            fraccionPoliza = 0.006;
-                            break;
-                        case (añoCarro >= 2010 && añoCarro <= 2018):
-                            fraccionPoliza = 0.0055;
-                            break;
-                        case (añoCarro <= 2009):
-                            fraccionPoliza = 0.003;
-                            break;
-                    }
-                    break;
-
-                case (edad >= 24 && edad <= 55):
-                    switch (true) {
-                        case (añoCarro >= 2019):
-                            fraccionPoliza = 0.005;
-                            break;
-                        case (añoCarro >= 2010 && añoCarro <= 2018):
-                            fraccionPoliza = 0.0049;
-                            break;
-                        case (añoCarro <= 2009):
-                            fraccionPoliza = 0.0025;
-                            break;
-                    }
-                    break;
-
-                case (edad >= 56):
-                    switch (true) {
-                        case (añoCarro >= 2019):
-                            fraccionPoliza = 0.0047;
-                            break;
-                        case (añoCarro >= 2010 && añoCarro <= 2018):
-                            fraccionPoliza = 0.0046;
-                            break;
-                        case (añoCarro <= 2009):
-                            fraccionPoliza = 0.002;
-                            break;
-                    }
-                    break;
-            }
-
-            console.log(fraccionPoliza);
-
-            return fraccionPoliza;
-        }
-
-        alert("Tu edad es: " + edad + ". El año de tu carro es: " + añoCarro + ". El precio de tu carro es: " + precioCarro + ".");
-
-        const calcularPolizaMensual = (fraccionPoliza, precio) => {
-            let polizaMensual = fraccionPoliza * precio;
-            return polizaMensual;
-        }
-
-        alert("El seguro mensual para tu auto es de: $" + calcularPolizaMensual(fraccionPoliza, parseFloat(precioCarro)));
-    }
-
-    reiniciar = prompt("¿Deseas calcular otra póliza? (S/N)");
-
-    reiniciar = reiniciar.toUpperCase();
+function mostrarMenu() {
+  alert("Bienvenido al sistema de ayuda para CarroPortantes :D");
+  alert("Seleccione una opción:\n1. Registrar vehículo\n2. Calcular póliza de seguro mensual\n3. Calcular letra mensual\n4. Ver vehículos registrados\n5. Salir del sistema");
 }
 
-alert("Gracias por usar la calculadora de póliza de seguro para tu auto. ¡Hasta luego!");
+function procesarOpcion(opcion) {
+  switch(opcion) {
+    case 1:
+      alert("Seleccionaste la opción 1: Registrar vehículo");
+      registrarVehiculo(listaVehiculos);
+      break;
+    case 2:
+      alert("Seleccionaste la opción 2: Calcular póliza de seguro mensual");
+      calcularPoliza();
+      break;
+    case 3:
+      alert("Seleccionaste la opción 3: Calcular letra mensual");
+      calcularLetra();
+      break;
+    case 4:
+      alert("Seleccionaste la opción 4: Ver vehículos registrados");
+      verVehiculos(listaVehiculos);
+      break;
+    case 5:
+      alert("Seleccionaste la opción 5: Salir del sistema");
+      break;
+    default:
+      alert("Opción no válida");
+  }
+}
+
+function menu() {
+  let opcion;
+
+  do {
+    mostrarMenu();
+    opcion = parseInt(prompt("Ingrese el número de la opción deseada:"));
+
+    if (opcion >= 1 && opcion <= 5) {
+      procesarOpcion(opcion);
+    } else {
+      alert("Opción no válida");
+    }
+  } while (opcion !== 5);
+}
+
+menu();
+
+// Funciones para las acciones de la actividad.
+
+function crearVehiculo() {
+  alert("Para poder registrar su vehiculo, debe proporcionar la siguiente informacion:");
+  let nombreDueno = prompt("Cual es tu primer Nombre?");
+  let edadDueno = parseInt(prompt("Que edad tienes?"));
+  let modeloCarro = prompt("Que modelo es tu carro?");
+  let anoCarro = parseInt(prompt("De que año es tu carro?"));
+  let precioCarro = parseFloat(prompt("Cuanto cuesta tu carro?")).toFixed(2);
+  
+  let vehiculo = {
+    nombreDueno: nombreDueno,
+    edadDueno: edadDueno,
+    modeloCarro: modeloCarro,
+    anoCarro: anoCarro,
+    precioCarro: precioCarro,
+  };
+  
+  alert("Vehículo registrado exitosamente");
+
+  return vehiculo;
+}
+
+function registrarVehiculo(listaVehiculos) {
+  let vehiculo = crearVehiculo();
+  listaVehiculos.push(vehiculo);
+  console.log(listaVehiculos);
+}
+
+function verVehiculos(listaVehiculos) {
+  if (listaVehiculos.length === 0) {
+    alert("No hay vehículos registrados.");
+  } else {
+    let mensaje = "Vehículos registrados:\n";
+    for (let i = 0; i < listaVehiculos.length; i++) {
+      let vehiculo = listaVehiculos[i];
+      mensaje += `${i + 1}. ${vehiculo.nombreDueno} - ${vehiculo.modeloCarro} (${vehiculo.anoCarro}) - $${vehiculo.precioCarro}\n`;
+    }
+    alert(mensaje);
+  }
+}
+
+function calcularPoliza() {
+  // Implementación de la función para calcular póliza
+  alert("Función para calcular póliza de seguro mensual aún no implementada.");
+}
+
+function calcularLetra() {
+  // Implementación de la función para calcular letra mensual
+  alert("Función para calcular letra mensual aún no implementada.");
+}
