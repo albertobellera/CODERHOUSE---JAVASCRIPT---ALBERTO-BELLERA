@@ -15,11 +15,11 @@ function procesarOpcion(opcion) {
       break;
     case 2:
       alert("Seleccionaste la opción 2: Calcular póliza de seguro mensual");
-      calcularPoliza();
+      seleccionarVehiculoPara(calcularPoliza);
       break;
     case 3:
       alert("Seleccionaste la opción 3: Calcular letra mensual");
-      calcularLetra();
+      seleccionarVehiculoPara(calcularLetra);
       break;
     case 4:
       alert("Seleccionaste la opción 4: Ver vehículos registrados");
@@ -92,12 +92,85 @@ function verVehiculos(listaVehiculos) {
   }
 }
 
-function calcularPoliza() {
-  // Implementación de la función para calcular póliza
-  alert("Función para calcular póliza de seguro mensual aún no implementada.");
+function seleccionarVehiculoPara(callback) {
+  if (listaVehiculos.length === 0) {
+    alert("No hay vehículos registrados.");
+    return;
+  }
+
+  let mensaje = "Seleccione un vehículo:\n";
+  for (let i = 0; i < listaVehiculos.length; i++) {
+    let vehiculo = listaVehiculos[i];
+    mensaje += `${i + 1}. ${vehiculo.nombreDueno} - ${vehiculo.modeloCarro} (${vehiculo.anoCarro}) - $${vehiculo.precioCarro}\n`;
+  }
+  
+  let seleccion = parseInt(prompt(mensaje)) - 1;
+
+  if (seleccion >= 0 && seleccion < listaVehiculos.length) {
+    let vehiculoSeleccionado = listaVehiculos[seleccion];
+    callback(vehiculoSeleccionado);
+  } else {
+    alert("Selección no válida.");
+  }
 }
 
-function calcularLetra() {
-  // Implementación de la función para calcular letra mensual
-  alert("Función para calcular letra mensual aún no implementada.");
+function calcularPoliza(vehiculo) {
+  let { nombreDueno, edadDueno, modeloCarro, anoCarro, precioCarro } = vehiculo;
+  let fraccionPoliza;
+  switch (true) {
+    case (edadDueno >= 18 && edadDueno <= 23):
+        switch (true) {
+            case (anoCarro >= 2019):
+                fraccionPoliza = 0.006;
+                break;
+            case (anoCarro >= 2010 && anoCarro <= 2018):
+                fraccionPoliza = 0.0055;
+                break;
+            case (anoCarro <= 2009):
+                fraccionPoliza = 0.003;
+                break;
+        }
+        break;
+
+    case (edadDueno >= 24 && edadDueno <= 55):
+        switch (true) {
+            case (anoCarro >= 2019):
+                fraccionPoliza = 0.005;
+                break;
+            case (anoCarro >= 2010 && anoCarro <= 2018):
+                fraccionPoliza = 0.0049;
+                break;
+            case (anoCarro <= 2009):
+                fraccionPoliza = 0.0025;
+                break;
+        }
+        break;
+
+    case (edadDueno >= 56):
+        switch (true) {
+            case (anoCarro >= 2019):
+                fraccionPoliza = 0.0047;
+                break;
+            case (anoCarro >= 2010 && anoCarro <= 2018):
+                fraccionPoliza = 0.0046;
+                break;
+            case (anoCarro <= 2009):
+                fraccionPoliza = 0.002;
+                break;
+        }
+        break;
+}
+  
+  let polizaMensual = precioCarro * fraccionPoliza;
+
+  alert(`La póliza mensual para ${nombreDueno} y su vehículo ${modeloCarro} es de $${polizaMensual.toFixed(2)}`);
+
+  return polizaMensual;
+}
+
+function calcularLetra(vehiculo) {
+  let { nombreDueno, edadDueno, modeloCarro, anoCarro, precioCarro } = vehiculo;
+  let plazo = 12;
+  let letraMensual = precioCarro / plazo;
+  alert(`La letra mensual para ${nombreDueno} y su vehículo ${modeloCarro} es de $${letraMensual.toFixed(2)}`);
 }
