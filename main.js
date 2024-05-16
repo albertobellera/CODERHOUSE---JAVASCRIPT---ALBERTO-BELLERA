@@ -50,7 +50,9 @@ function menu() {
 
 menu();
 
-// Funciones para las acciones de la actividad.
+// Funciones para las acciones del sistema.
+
+// Creamos el objeto vehiculo.
 
 function crearVehiculo() {
   alert("Para poder registrar su vehiculo, debe proporcionar la siguiente informacion:");
@@ -73,11 +75,15 @@ function crearVehiculo() {
   return vehiculo;
 }
 
+// Metemos el objeto en el arreglo.
+
 function registrarVehiculo(listaVehiculos) {
   let vehiculo = crearVehiculo();
   listaVehiculos.push(vehiculo);
   console.log(listaVehiculos);
 }
+
+// Aqui podemos ver todos los objetos que hay en el arreglo.
 
 function verVehiculos(listaVehiculos) {
   if (listaVehiculos.length === 0) {
@@ -91,6 +97,8 @@ function verVehiculos(listaVehiculos) {
     alert(mensaje);
   }
 }
+
+// Con esta funcion podemos seleccionar el vehiculo para el cual queramos aplicar el calculo correspondiente (ya sea poliza o letra mensual).
 
 function seleccionarVehiculoPara(callback) {
   if (listaVehiculos.length === 0) {
@@ -113,6 +121,8 @@ function seleccionarVehiculoPara(callback) {
     alert("Selección no válida.");
   }
 }
+
+// Esta funcion es para calcular la poliza de seguro mensual.
 
 function calcularPoliza(vehiculo) {
   let { nombreDueno, edadDueno, modeloCarro, anoCarro, precioCarro } = vehiculo;
@@ -168,6 +178,8 @@ function calcularPoliza(vehiculo) {
 
   return polizaMensual;
 }
+
+// Esta funcion es para calcula la letra mensual del vehiculo.
 
 function calcularLetra(vehiculo) {
   let { nombreDueno, modeloCarro, precioCarro } = vehiculo;
