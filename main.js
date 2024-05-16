@@ -58,9 +58,21 @@ function crearVehiculo() {
   alert("Para poder registrar su vehiculo, debe proporcionar la siguiente informacion:");
   let nombreDueno = prompt("Cual es tu primer Nombre?");
   let edadDueno = parseInt(prompt("Que edad tienes?"));
+  // Validación de edad
+  while (isNaN(edadDueno) || edadDueno <= 0) {
+    edadDueno = parseInt(prompt("Por favor, ingresa una edad válida (número mayor que cero):"));
+  }
   let modeloCarro = prompt("Que modelo es tu carro?");
   let anoCarro = parseInt(prompt("De que año es tu carro?"));
+  // Validación de año del carro
+  while (isNaN(anoCarro) || anoCarro <= 0 || anoCarro > new Date().getFullYear()) {
+    anoCarro = parseInt(prompt("Por favor, ingresa un año de carro válido (número mayor que cero y no en el futuro):"));
+  }
   let precioCarro = parseFloat(prompt("Cuanto cuesta tu carro?"));
+  // Validación de precio del carro
+  while (isNaN(precioCarro) || precioCarro <= 0) {
+    precioCarro = parseFloat(prompt("Por favor, ingresa un precio de carro válido (número mayor que cero):"));
+  }
   
   let vehiculo = {
     nombreDueno: nombreDueno,
@@ -126,7 +138,12 @@ function seleccionarVehiculoPara(callback) {
 
 function calcularPoliza(vehiculo) {
   let { nombreDueno, edadDueno, modeloCarro, anoCarro, precioCarro } = vehiculo;
-  let fraccionPoliza;
+  let fraccionPoliza = 0;
+
+  if (edadDueno <18) {
+    alert(`Lo sentimos, ${nombreDueno}, pero no puedes asegurar el vehículo ${modeloCarro} porque eres menor de 18 años.`);
+    return null;
+  }
 
   switch (true) {
     case (edadDueno >= 18 && edadDueno <= 23):
@@ -156,7 +173,6 @@ function calcularPoliza(vehiculo) {
           break;
       }
       break;
-
     case (edadDueno >= 56):
       switch (true) {
         case (anoCarro >= 2019):
@@ -179,13 +195,22 @@ function calcularPoliza(vehiculo) {
   return polizaMensual;
 }
 
-// Esta funcion es para calcula la letra mensual del vehiculo.
+// Esta funcion es para calcular la letra mensual del vehiculo.
 
 function calcularLetra(vehiculo) {
   let { nombreDueno, modeloCarro, precioCarro } = vehiculo;
 
   let abonoInicial = parseFloat(prompt("Cuanto diste de abono inicial para el vehiculo?"));
+  // Validación de abono inicial
+  while (isNaN(abonoInicial) || abonoInicial < 0 || abonoInicial > precioCarro) {
+    abonoInicial = parseFloat(prompt(`Por favor, ingresa un abono inicial válido (número mayor o igual a cero y menor o igual al precio del carro: $${precioCarro}):`));
+  }
   let anosLetraSeleccion = parseInt(prompt("En cuantos años quieres pagar el vehiculo?"));
+  // Validación de años para pagar la letra
+  while (isNaN(anosLetraSeleccion) || anosLetraSeleccion <= 0 || anosLetraSeleccion > 10) {
+    anosLetraSeleccion = parseInt(prompt("Por favor, ingresa una cantidad de años válida para pagar la letra (número mayor que cero y menor o igual a 10):"));
+  }
+  
   let porcentajePrecioLetra;
 
   if (anosLetraSeleccion <= 5) {
