@@ -4,7 +4,7 @@ let listaVehiculos = [];
 
 function mostrarMenu() {
   alert("Bienvenido al sistema de ayuda para CarroPortantes :D");
-  alert("Seleccione una opción:\n1. Registrar vehículo\n2. Calcular póliza de seguro mensual\n3. Calcular letra mensual\n4. Ver vehículos registrados\n5. Salir del sistema");
+  alert("Seleccione una opción:\n1. Registrar vehículo\n2. Calcular póliza de seguro mensual\n3. Calcular letra mensual\n4. Ver vehículos registrados\n5. Buscar vehículo por dueño\n6. Filtrar vehículos por rango de precio\n7. Salir del sistema");
 }
 
 function procesarOpcion(opcion) {
@@ -26,7 +26,15 @@ function procesarOpcion(opcion) {
       verVehiculos(listaVehiculos);
       break;
     case 5:
-      alert("Seleccionaste la opción 5: Salir del sistema");
+      alert("Seleccionaste la opción 5: Buscar vehículo por dueño");
+      buscarVehiculoPorDueno(listaVehiculos);
+      break;
+    case 6:
+      alert("Seleccionaste la opción 6: Filtrar vehículos por rango de precio");
+      filtrarVehiculosPorPrecio(listaVehiculos);
+      break;
+    case 7:
+      alert("Seleccionaste la opción 7: Salir del sistema");
       break;
     default:
       alert("Opción no válida");
@@ -40,12 +48,12 @@ function menu() {
     mostrarMenu();
     opcion = parseInt(prompt("Ingrese el número de la opción deseada:"));
 
-    if (opcion >= 1 && opcion <= 5) {
+    if (opcion >= 1 && opcion <= 7) {
       procesarOpcion(opcion);
     } else {
       alert("Opción no válida");
     }
-  } while (opcion !== 5);
+  } while (opcion !== 7);
 }
 
 menu();
@@ -226,4 +234,54 @@ function calcularLetra(vehiculo) {
 
   alert(`La letra mensual para ${nombreDueno} y su vehículo ${modeloCarro} es de $${letraMensual.toFixed(2)}`);
   return letraMensual;
+}
+
+// Función para buscar vehículo por el nombre del dueño.
+
+function buscarVehiculoPorDueno(listaVehiculos) {
+  if (listaVehiculos.length === 0) {
+    alert("No hay vehículos registrados.");
+    return;
+  }
+
+  let nombreDueno = prompt("Ingrese el nombre del dueño que desea buscar:");
+  let vehiculoEncontrado = listaVehiculos.find(vehiculo => vehiculo.nombreDueno.toLowerCase() === nombreDueno.toLowerCase());
+
+  if (vehiculoEncontrado) {
+    alert(`Vehículo encontrado:\n${vehiculoEncontrado.nombreDueno} - ${vehiculoEncontrado.modeloCarro} (${vehiculoEncontrado.anoCarro}) - $${vehiculoEncontrado.precioCarro.toFixed(2)}`);
+  } else {
+    alert(`No se encontró ningún vehículo a nombre de ${nombreDueno}`);
+  }
+}
+
+// Función para filtrar vehículos por un rango de precios.
+
+function filtrarVehiculosPorPrecio(listaVehiculos) {
+  if (listaVehiculos.length === 0) {
+    alert("No hay vehículos registrados.");
+    return;
+  }
+
+  let precioMinimo = parseFloat(prompt("Ingrese el precio mínimo:"));
+  while (isNaN(precioMinimo) || precioMinimo < 0) {
+    precioMinimo = parseFloat(prompt("Por favor, ingrese un precio mínimo válido (número mayor o igual a cero):"));
+  }
+
+  let precioMaximo = parseFloat(prompt("Ingrese el precio máximo:"));
+  while (isNaN(precioMaximo) || precioMaximo <= 0 || precioMaximo < precioMinimo) {
+    precioMaximo = parseFloat(prompt(`Por favor, ingrese un precio máximo válido (número mayor o igual a cero y mayor o igual al precio mínimo: $${precioMinimo}):`));
+  }
+
+  let vehiculosFiltrados = listaVehiculos.filter(vehiculo => vehiculo.precioCarro >= precioMinimo && vehiculo.precioCarro <= precioMaximo);
+
+  if (vehiculosFiltrados.length === 0) {
+    alert(`No se encontraron vehículos en el rango de precio: $${precioMinimo.toFixed(2)} - $${precioMaximo.toFixed(2)}`);
+  } else {
+    let mensaje = `Vehículos en el rango de precio $${precioMinimo.toFixed(2)} - $${precioMaximo.toFixed(2)}:\n`;
+    for (let i = 0; i < vehiculosFiltrados.length; i++) {
+      let vehiculo = vehiculosFiltrados[i];
+      mensaje += `${i + 1}. ${vehiculo.nombreDueno} - ${vehiculo.modeloCarro} (${vehiculo.anoCarro}) - $${vehiculo.precioCarro.toFixed(2)}\n`;
+    }
+    alert(mensaje);
+  }
 }
