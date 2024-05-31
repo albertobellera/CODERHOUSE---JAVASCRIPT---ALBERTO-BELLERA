@@ -1,15 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CarroPortantes</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Alberto Enrique Bellera Sucre</h1>
-    <h2>Coder House</h2>
-    <h3>JavaScript</h3>
-    <h3>Comision: 57690</h3>
+    <h1>Sistema de Ayuda para CarroPortantes</h1>
+
+    <section>
+        <h2>Registrar Vehículo</h2>
+        <form id="formRegistrar">
+            <label for="nombreDueno">Nombre del Dueño:</label>
+            <input type="text" id="nombreDueno" required>
+            <label for="edadDueno">Edad del Dueño:</label>
+            <input type="number" id="edadDueno" required>
+            <label for="modeloCarro">Modelo del Carro:</label>
+            <input type="text" id="modeloCarro" required>
+            <label for="anoCarro">Año del Carro:</label>
+            <input type="number" id="anoCarro" required>
+            <label for="precioCarro">Precio del Carro:</label>
+            <input type="number" id="precioCarro" step="0.01" required>
+            <button type="submit">Registrar Vehículo</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Ver Vehículos Registrados</h2>
+        <ul id="listaVehiculos"></ul>
+    </section>
+
+    <section>
+        <h2>Buscar Vehículo por Dueño</h2>
+        <form id="formBuscarVehiculo">
+            <label for="nombreBuscar">Nombre del Dueño:</label>
+            <input type="text" id="nombreBuscar" required>
+            <button type="submit">Buscar</button>
+        </form>
+        <p id="buscarMensaje"></p>
+    </section>
+
+    <section>
+        <h2>Filtrar Vehículos por Rango de Precio</h2>
+        <form id="formFiltrarVehiculos">
+            <label for="precioMinimo">Precio Mínimo:</label>
+            <input type="number" id="precioMinimo" step="0.01" required>
+            <label for="precioMaximo">Precio Máximo:</label>
+            <input type="number" id="precioMaximo" step="0.01" required>
+            <button type="submit">Filtrar</button>
+        </form>
+        <p id="filtroMensaje"></p>
+    </section>
+
+    <section>
+        <h2>Calcular Póliza de Seguro Mensual</h2>
+        <form id="formCalcularPoliza">
+            <div id="vehiculosPoliza"></div>
+            <button type="submit">Calcular Póliza</button>
+        </form>
+        <p id="polizaMensaje"></p>
+    </section>
+
+    <section>
+        <h2>Calcular Letra Mensual</h2>
+        <form id="formCalcularLetra">
+            <div id="vehiculosLetra"></div>
+            <label for="abonoInicial">Abono Inicial:</label>
+            <input type="number" id="abonoInicial" step="0.01" required>
+            <label for="anosLetraSeleccion">Años para Pagar:</label>
+            <input type="number" id="anosLetraSeleccion" required>
+            <button type="submit">Calcular Letra</button>
+        </form>
+        <p id="letraMensaje"></p>
+    </section>
+
     <script src="main.js"></script>
 </body>
 </html>
