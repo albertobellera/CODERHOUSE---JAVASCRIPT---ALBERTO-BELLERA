@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f0f5f9; /* Azul claro */
     margin: 0;
     padding: 0;
     display: flex;
@@ -9,8 +9,8 @@ body {
 }
 
 h1 {
-    background-color: #333;
-    color: #fff;
+    background-color: #3498db; /* Azul */
+    color: #fff; /* Blanco */
     padding: 20px;
     width: 100%;
     text-align: center;
@@ -18,7 +18,7 @@ h1 {
 }
 
 section {
-    background-color: #fff;
+    background-color: #fff; /* Blanco */
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 20px;
@@ -28,7 +28,7 @@ section {
 }
 
 h2 {
-    color: #333;
+    color: #333; /* Negro */
     margin-top: 0;
 }
 
@@ -45,7 +45,7 @@ label {
 input[type="text"],
 input[type="number"] {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; /* Gris */
     border-radius: 5px;
     margin-top: 5px;
 }
@@ -54,15 +54,15 @@ button {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    background-color: #28a745;
-    color: #fff;
+    background-color: #2980b9; /* Azul */
+    color: #fff; /* Blanco */
     font-size: 16px;
     cursor: pointer;
     margin-top: 15px;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #2573a6; /* Azul más oscuro */
 }
 
 ul {
@@ -71,8 +71,8 @@ ul {
 }
 
 li {
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
+    background-color: #ecf0f1; /* Azul claro */
+    border: 1px solid #bdc3c7; /* Gris claro */
     border-radius: 5px;
     padding: 10px;
     margin: 5px 0;
