@@ -54,12 +54,18 @@ function actualizarListaVehiculos() {
     lista.innerHTML = "";
     listaVehiculos.forEach((vehiculo, index) => {
         let item = document.createElement("li");
-        item.textContent = `${index + 1}. ${vehiculo.nombreDueno} - ${vehiculo.modeloCarro} (${vehiculo.anoCarro}) - $${vehiculo.precioCarro.toFixed(2)}`;
+        item.innerHTML = `${index + 1}. ${vehiculo.nombreDueno} - ${vehiculo.modeloCarro} (${vehiculo.anoCarro}) - $${vehiculo.precioCarro.toFixed(2)} 
+                          <button onclick="eliminarVehiculo(${index})">Eliminar</button>`;
         lista.appendChild(item);
     });
 
     actualizarSelectVehiculos("vehiculosPoliza", "vehiculoPoliza");
     actualizarSelectVehiculos("vehiculosLetra", "vehiculoLetra");
+}
+
+function eliminarVehiculo(index) {
+    listaVehiculos.splice(index, 1);
+    actualizarListaVehiculos();
 }
 
 function actualizarSelectVehiculos(selectId, radioName) {
@@ -101,47 +107,37 @@ function calcularLetra(vehiculo) {
     let anosLetraSeleccion = parseInt(document.getElementById("anosLetraSeleccion").value);
 
     let porcentajePrecioLetra;
-    if (anosLetraSeleccion <= 5) {
-        porcentajePrecioLetra = 0.05;
-    } else if (anosLetraSeleccion > 5 && anosLetraSeleccion <= 7) {
-        porcentajePrecioLetra = 0.07;
+    if (precioCarro <= 12000) {
+        porcentajePrecioLetra = 0.20;
+    } else if (precioCarro <= 25000) {
+        porcentajePrecioLetra = 0.15;
     } else {
-        porcentajePrecioLetra = 0.1;
+        porcentajePrecioLetra = 0.10;
     }
 
-    let valorFinanciado = precioCarro - abonoInicial;
-    let interes = valorFinanciado * porcentajePrecioLetra * anosLetraSeleccion;
-    let valorTotalAdeudado = valorFinanciado + interes;
-    let letraMensual = valorTotalAdeudado / (anosLetraSeleccion * 12);
+    let precioFinal = precioCarro * (1 + porcentajePrecioLetra);
+    let cantidadMeses = anosLetraSeleccion * 12;
+    let montoMensual = (precioFinal - abonoInicial) / cantidadMeses;
 
-    document.getElementById("letraMensaje").textContent = `La letra mensual para ${nombreDueno} y su vehículo ${modeloCarro} es de $${letraMensual.toFixed(2)}`;
+    document.getElementById("letraMensaje").textContent = `La letra mensual para ${nombreDueno} y su vehículo ${modeloCarro} es de $${montoMensual.toFixed(2)}`;
 }
 
 function buscarVehiculoPorDueno() {
     let nombreBuscar = document.getElementById("nombreBuscar").value;
-    let vehiculoEncontrado = listaVehiculos.find(vehiculo => vehiculo.nombreDueno.toLowerCase() === nombreBuscar.toLowerCase());
+    let vehiculo = listaVehiculos.find(v => v.nombreDueno.toLowerCase() === nombreBuscar.toLowerCase());
 
-    if (vehiculoEncontrado) {
-        document.getElementById("buscarMensaje").textContent = `Vehículo encontrado: ${vehiculoEncontrado.nombreDueno} - ${vehiculoEncontrado.modeloCarro} (${vehiculoEncontrado.anoCarro}) - $${vehiculoEncontrado.precioCarro.toFixed(2)}`;
-    } else {
-        document.getElementById("buscarMensaje").textContent = "No se encontró ningún vehículo para el dueño especificado.";
-    }
+    let mensaje = vehiculo ? `Vehículo encontrado: ${vehiculo.nombreDueno} - ${vehiculo.modeloCarro} (${vehiculo.anoCarro}) - $${vehiculo.precioCarro.toFixed(2)}` : "Vehículo no encontrado.";
+    document.getElementById("buscarMensaje").textContent = mensaje;
 }
 
 function filtrarVehiculosPorPrecio() {
     let precioMinimo = parseFloat(document.getElementById("precioMinimo").value);
     let precioMaximo = parseFloat(document.getElementById("precioMaximo").value);
 
-    let vehiculosFiltrados = listaVehiculos.filter(vehiculo => vehiculo.precioCarro >= precioMinimo && vehiculo.precioCarro <= precioMaximo);
+    let vehiculosFiltrados = listaVehiculos.filter(v => v.precioCarro >= precioMinimo && v.precioCarro <= precioMaximo);
 
-    let mensaje = "Vehículos en el rango de precio:<br>";
-    if (vehiculosFiltrados.length > 0) {
-        vehiculosFiltrados.forEach((vehiculo, index) => {
-            mensaje += `${index + 1}. ${vehiculo.nombreDueno} - ${vehiculo.modeloCarro} (${vehiculo.anoCarro}) - $${vehiculo.precioCarro.toFixed(2)}<br>`;
-        });
-    } else {
-        mensaje += "No se encontraron vehículos en el rango de precio especificado.";
-    }
-
+    let mensaje = vehiculosFiltrados.length > 0 ? 
+                  vehiculosFiltrados.map(v => `${v.nombreDueno} - ${v.modeloCarro} (${v.anoCarro}) - $${v.precioCarro.toFixed(2)}`).join("<br>") : 
+                  "No se encontraron vehículos en ese rango de precio.";
     document.getElementById("filtroMensaje").innerHTML = mensaje;
 }
