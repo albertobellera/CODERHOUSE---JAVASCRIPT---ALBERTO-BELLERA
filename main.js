@@ -62,6 +62,8 @@ function actualizarListaVehiculos() {
         lista.appendChild(item);
     });
 
+    console.log("Lista de vehículos actualizada:", listaVehiculos);
+
     actualizarSelectVehiculos("vehiculosPoliza", "vehiculoPoliza");
     actualizarSelectVehiculos("vehiculosLetra", "vehiculoLetra");
 }
