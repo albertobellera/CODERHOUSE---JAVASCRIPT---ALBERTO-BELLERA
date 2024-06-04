@@ -1,6 +1,8 @@
 let listaVehiculos = JSON.parse(localStorage.getItem('listaVehiculos')) || [];
 
 document.addEventListener("DOMContentLoaded", function() {
+    actualizarListaVehiculos(); // Llamar a actualizarListaVehiculos() al cargar el contenido del DOM
+
     document.getElementById("formRegistrar").addEventListener("submit", function(event) {
         event.preventDefault();
         registrarVehiculo();
@@ -61,8 +63,6 @@ function actualizarListaVehiculos() {
                           <button onclick="eliminarVehiculo(${index})">Eliminar</button>`;
         lista.appendChild(item);
     });
-
-    console.log("Lista de vehículos actualizada:", listaVehiculos);
 
     actualizarSelectVehiculos("vehiculosPoliza", "vehiculoPoliza");
     actualizarSelectVehiculos("vehiculosLetra", "vehiculoLetra");
