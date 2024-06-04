@@ -1,7 +1,7 @@
 let listaVehiculos = JSON.parse(localStorage.getItem('listaVehiculos')) || [];
 
 document.addEventListener("DOMContentLoaded", function() {
-    actualizarListaVehiculos(); // Llamar a actualizarListaVehiculos() al cargar el contenido del DOM
+    actualizarListaVehiculos();
 
     document.getElementById("formRegistrar").addEventListener("submit", function(event) {
         event.preventDefault();
@@ -50,7 +50,6 @@ function registrarVehiculo() {
     document.getElementById("formRegistrar").reset();
     actualizarListaVehiculos();
 
-    // Guardar listaVehiculos en localStorage
     localStorage.setItem('listaVehiculos', JSON.stringify(listaVehiculos));
 }
 
@@ -72,7 +71,6 @@ function eliminarVehiculo(index) {
     listaVehiculos.splice(index, 1);
     actualizarListaVehiculos();
 
-    // Actualizar localStorage después de eliminar un vehículo
     localStorage.setItem('listaVehiculos', JSON.stringify(listaVehiculos));
 }
 
