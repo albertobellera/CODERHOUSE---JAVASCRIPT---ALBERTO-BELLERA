@@ -84,7 +84,7 @@ function mostrarMensajeEliminacion() {
 
     setTimeout(() => {
         mensajeEliminacion.remove();
-    }, 3000);  // El mensaje se eliminará después de 3 segundos
+    }, 3000);
 }
 
 function actualizarSelectVehiculos(selectId, radioName) {
