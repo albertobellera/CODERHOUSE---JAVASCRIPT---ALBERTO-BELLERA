@@ -58,8 +58,9 @@ function actualizarListaVehiculos() {
     lista.innerHTML = "";
     listaVehiculos.forEach((vehiculo, index) => {
         let item = document.createElement("li");
+        item.className = "list-group-item";
         item.innerHTML = `${index + 1}. ${vehiculo.nombreDueno} - ${vehiculo.modeloCarro} (${vehiculo.anoCarro}) - $${vehiculo.precioCarro.toFixed(2)} 
-                          <button onclick="eliminarVehiculo(${index})">Eliminar</button>`;
+                          <button class="btn btn-danger btn-sm float-right" onclick="eliminarVehiculo(${index})">Eliminar</button>`;
         lista.appendChild(item);
     });
 
