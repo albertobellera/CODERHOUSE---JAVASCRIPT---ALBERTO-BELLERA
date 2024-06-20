@@ -71,8 +71,20 @@ function actualizarListaVehiculos() {
 function eliminarVehiculo(index) {
     listaVehiculos.splice(index, 1);
     actualizarListaVehiculos();
-
     localStorage.setItem('listaVehiculos', JSON.stringify(listaVehiculos));
+    mostrarMensajeEliminacion();
+}
+
+function mostrarMensajeEliminacion() {
+    let mensajeEliminacion = document.createElement("div");
+    mensajeEliminacion.id = "mensajeEliminacion";
+    mensajeEliminacion.className = "alert alert-info";
+    mensajeEliminacion.textContent = "Se ha eliminado un registro.";
+    document.body.appendChild(mensajeEliminacion);
+
+    setTimeout(() => {
+        mensajeEliminacion.remove();
+    }, 3000);  // El mensaje se eliminará después de 3 segundos
 }
 
 function actualizarSelectVehiculos(selectId, radioName) {
