@@ -78,7 +78,7 @@ function eliminarVehiculo(index) {
 function mostrarMensajeEliminacion() {
     let mensajeEliminacion = document.createElement("div");
     mensajeEliminacion.id = "mensajeEliminacion";
-    mensajeEliminacion.className = "alert alert-info";
+    mensajeEliminacion.className = "alert alert-info fixed-top";
     mensajeEliminacion.textContent = "Se ha eliminado un registro.";
     document.body.appendChild(mensajeEliminacion);
 
