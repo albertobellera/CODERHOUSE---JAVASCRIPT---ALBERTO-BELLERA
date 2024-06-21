@@ -30,17 +30,15 @@ document.addEventListener("DOMContentLoaded", function() {
         calcularPoliza(vehiculoSeleccionado);
     });
 
-    // Carga inicial de datos desde el localStorage
     cargarDatosIniciales();
 });
 
 async function cargarDatosIniciales() {
     try {
-        // Simulamos una llamada fetch a un servicio, aquí utilizamos una promesa que se resuelve inmediatamente
         await new Promise(resolve => setTimeout(resolve, 1000));
 
-        // Actualizar la interfaz después de cargar los datos
         actualizarListaVehiculos();
+        
     } catch (error) {
         console.error('Error en la carga de datos:', error);
     }
