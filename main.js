@@ -30,30 +30,17 @@ document.addEventListener("DOMContentLoaded", function() {
         calcularPoliza(vehiculoSeleccionado);
     });
 
-    cargarDatosDesdeServicio();
+    // Carga inicial de datos desde el localStorage
+    cargarDatosIniciales();
 });
 
-async function cargarDatosDesdeServicio() {
+async function cargarDatosIniciales() {
     try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        if (!response.ok) {
-            throw new Error('Error al cargar datos');
-        }
-        const data = await response.json();
+        // Simulamos una llamada fetch a un servicio, aquí utilizamos una promesa que se resuelve inmediatamente
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
-        data.forEach((item, index) => {
-            let vehiculo = {
-                nombreDueno: `Propietario ${index + 1}`,
-                edadDueno: Math.floor(Math.random() * 50) + 18,
-                modeloCarro: `Modelo ${index + 1}`,
-                anoCarro: Math.floor(Math.random() * 20) + 2000,
-                precioCarro: parseFloat((Math.random() * 30000 + 10000).toFixed(2))
-            };
-            listaVehiculos.push(vehiculo);
-        });
-
+        // Actualizar la interfaz después de cargar los datos
         actualizarListaVehiculos();
-        localStorage.setItem('listaVehiculos', JSON.stringify(listaVehiculos));
     } catch (error) {
         console.error('Error en la carga de datos:', error);
     }
