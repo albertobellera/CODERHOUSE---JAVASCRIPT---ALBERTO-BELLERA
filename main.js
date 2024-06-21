@@ -29,7 +29,35 @@ document.addEventListener("DOMContentLoaded", function() {
         let vehiculoSeleccionado = listaVehiculos[parseInt(document.querySelector('input[name="vehiculoPoliza"]:checked').value)];
         calcularPoliza(vehiculoSeleccionado);
     });
+
+    cargarDatosDesdeServicio();
 });
+
+async function cargarDatosDesdeServicio() {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        if (!response.ok) {
+            throw new Error('Error al cargar datos');
+        }
+        const data = await response.json();
+
+        data.forEach((item, index) => {
+            let vehiculo = {
+                nombreDueno: `Propietario ${index + 1}`,
+                edadDueno: Math.floor(Math.random() * 50) + 18,
+                modeloCarro: `Modelo ${index + 1}`,
+                anoCarro: Math.floor(Math.random() * 20) + 2000,
+                precioCarro: parseFloat((Math.random() * 30000 + 10000).toFixed(2))
+            };
+            listaVehiculos.push(vehiculo);
+        });
+
+        actualizarListaVehiculos();
+        localStorage.setItem('listaVehiculos', JSON.stringify(listaVehiculos));
+    } catch (error) {
+        console.error('Error en la carga de datos:', error);
+    }
+}
 
 function registrarVehiculo() {
     let nombreDueno = document.getElementById("nombreDueno").value;
